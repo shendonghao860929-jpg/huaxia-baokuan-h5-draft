@@ -14,7 +14,6 @@
 html,body{margin:0;padding:0}
 body{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);-webkit-text-size-adjust:100%}
 body.v-list{background:var(--cream)} body.v-detail{background:#eef1f2}
-.wmark{position:fixed;inset:0;pointer-events:none;z-index:50;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='160'%3E%3Ctext x='10' y='100' transform='rotate(-24 110 80)' font-size='16' fill='%23c0392b' fill-opacity='0.10' font-family='sans-serif'%3E内部草稿·不对外%3C/text%3E%3C/svg%3E")}
 .view{display:none}.view.on{display:block}
 /* ===== 总览 ===== */
 .l-top{position:sticky;top:0;z-index:20;background:var(--cream2);border-bottom:2px solid var(--org);padding:8px 12px;display:flex;align-items:center;gap:8px}
@@ -94,7 +93,6 @@ body.editing [data-f="locNote"]:empty:before{content:"＋补充到店引导：�
 </style>
 </head>
 <body class="v-list">
-<div class="wmark"></div>
 
 <section id="vList" class="view on">
   <div class="l-top"><div class="t"><b>华厦万人家博会 · 爆款专区</b><small>总览 · 点卡片看详情 / 到店指引</small></div><span class="badge" id="cnt"></span></div>
