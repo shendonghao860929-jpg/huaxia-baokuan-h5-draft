@@ -77,14 +77,14 @@ function save(){localStorage.setItem(KEY,JSON.stringify(draft));saved=JSON.parse
 $('#bSave').onclick=save;
 function download(name,text,type){var b=new Blob([text],{type:type});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)}
 function stamp(){var d=new Date();return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0')}
-$('#bJson').onclick=function(){download('华厦爆款H5_编辑导出_'+stamp()+'.json',JSON.stringify({note:'内部草稿·不对外',exported_at:new Date().toString(),changes:draft,items:all()},null,2),'application/json');toast('已导出 JSON（含改动清单+全部条目）')};
+$('#bJson').onclick=function(){download('华厦爆款H5_编辑导出_'+stamp()+'.json',JSON.stringify({note:'华厦爆款H5导出',exported_at:new Date().toString(),changes:draft,items:all()},null,2),'application/json');toast('已导出 JSON（含改动清单+全部条目）')};
 $('#bHtml').onclick=function(){
   var base=location.href.replace(/#.*$/,'').replace(/[^\/]*$/,'');
   Promise.all([fetch('index.html').then(function(r){return r.text()}),fetch('app.js').then(function(r){return r.text()})]).then(function(r){
     var html=r[0].replace('<head>','<head>\n<base href="'+base+'">')
       .replace('<script src="data.js"></script>','<script>window.BAOKUAN_DATA='+JSON.stringify(all()).replace(/</g,'\\u003c')+';</script>')
       .replace('<script src="app.js"></script>','<script>'+r[1].replace(/<\/script/gi,'<\\/script')+'</script>');
-    download('华厦爆款H5_内部草稿_'+stamp()+'.html',html,'text/html');toast('已导出 HTML（改动已并入，图片走线上地址）')
+    download('华厦爆款H5_导出_'+stamp()+'.html',html,'text/html');toast('已导出 HTML（改动已并入，图片走线上地址）')
   }).catch(function(){toast('导出 HTML 需在网页链接里打开（本地文件不支持）')})};
 $('#bImport').onclick=function(){$('#importFile').click()};
 $('#importFile').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var j=JSON.parse(r.result);var ch=j.changes||j;Object.keys(ch).forEach(function(id){if(byId[id])draft[id]=Object.assign(draft[id]||{},ch[id])});dirty=true;route();toast('已导入，记得点「保存」')}catch(e){toast('文件不是有效 JSON')}};r.readAsText(f);this.value=''};
